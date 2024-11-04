@@ -4,10 +4,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:holoo_dashboard/domain/dto/sync/sync.dart';
 
-import 'domain/base_responses/base_response.dart';
-import 'domain/dto/authentication/user_token.dart';
+import 'features/domain/base_responses/base_response.dart';
+import 'features/domain/dto/authentication/user_token.dart';
+import 'features/domain/dto/sync/sync.dart';
+
 
 void main() {
   runApp(const MyApp());
