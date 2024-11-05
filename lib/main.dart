@@ -4,11 +4,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:holoo_dashboard/src/features/presentation/Pages/sync_result.dart';
 
 import 'src/features/domain/base_responses/base_response.dart';
 import 'src/features/domain/dto/authentication/user_token.dart';
 import 'src/features/domain/dto/sync/sync.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -41,7 +41,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Directionality(
+        // add this
+        textDirection: TextDirection.rtl, // set this property
+        child: const MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
@@ -83,8 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
         '/api/User/authenticate',
         data: {'username': 'tozintech', 'password': 'ttech'},
       );
-      ApiResponse<UserToken> resp = ApiResponse.fromJson(
-          response.data, (Object? json) => UserToken.fromJson(response.data));
+      ApiResponse<UserToken> resp = ApiResponse.fromJson(response.data,
+          (Object? json) => UserToken.fromJson(response.data['data']));
       token = resp.data?.token;
     } on DioException catch (e) {
       token = null;
@@ -99,8 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
       Response response =
           await dio.post('/api/SyncStatus/Info', data: json.encode(request));
       if (response.statusCode == 200) {
-        ApiResponse<SyncResponses> resp = ApiResponse.fromJson(response.data,
+        resault = ApiResponse.fromJson(response.data,
             (Object? json) => SyncResponses.fromJson(response.data));
+        print(resault);
       } else {
         print('API call failed: ${response.statusMessage}');
       }
@@ -143,9 +148,18 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     const request = SyncRequest(Issuccessfull: false);
     userData = await getSyncStatus(request);
-    setState(() {
-      _counter++;
-    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => Directionality(
+          textDirection: TextDirection.rtl,
+          child: SyncResult(
+              title: "گزارش فاکتورهای ارسال نشده",
+              items: userData!.data!.data!.length,
+              syncResponses: userData!.data),
+        ),
+      ),
+    );
   }
 
   @override
@@ -232,7 +246,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: getFailedSyncs,
+                    onPressed: () {
+                      getFailedSyncs();
+                    },
                     child: Text(
                       'گزارش فاکتورهای ارسال نشده',
                       textAlign: TextAlign.center,

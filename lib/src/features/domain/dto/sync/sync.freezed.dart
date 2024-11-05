@@ -25,9 +25,9 @@ mixin _$SyncResponse {
   int? get objectType => throw _privateConstructorUsedError;
   int? get objectId => throw _privateConstructorUsedError;
   String? get objectCode => throw _privateConstructorUsedError;
-  String? get ErrorCode => throw _privateConstructorUsedError;
+  String? get errorCode => throw _privateConstructorUsedError;
   bool? get isSuccessfull => throw _privateConstructorUsedError;
-  String? get ErrorMessage => throw _privateConstructorUsedError;
+  String? get errorMessage => throw _privateConstructorUsedError;
   bool? get apiResponseOk => throw _privateConstructorUsedError;
   String? get apiRequestMessage => throw _privateConstructorUsedError;
   String? get apiResponseMessage => throw _privateConstructorUsedError;
@@ -57,9 +57,9 @@ abstract class $SyncResponseCopyWith<$Res> {
       int? objectType,
       int? objectId,
       String? objectCode,
-      String? ErrorCode,
+      String? errorCode,
       bool? isSuccessfull,
-      String? ErrorMessage,
+      String? errorMessage,
       bool? apiResponseOk,
       String? apiRequestMessage,
       String? apiResponseMessage,
@@ -88,9 +88,9 @@ class _$SyncResponseCopyWithImpl<$Res, $Val extends SyncResponse>
     Object? objectType = freezed,
     Object? objectId = freezed,
     Object? objectCode = freezed,
-    Object? ErrorCode = freezed,
+    Object? errorCode = freezed,
     Object? isSuccessfull = freezed,
-    Object? ErrorMessage = freezed,
+    Object? errorMessage = freezed,
     Object? apiResponseOk = freezed,
     Object? apiRequestMessage = freezed,
     Object? apiResponseMessage = freezed,
@@ -119,17 +119,17 @@ class _$SyncResponseCopyWithImpl<$Res, $Val extends SyncResponse>
           ? _value.objectCode
           : objectCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      ErrorCode: freezed == ErrorCode
-          ? _value.ErrorCode
-          : ErrorCode // ignore: cast_nullable_to_non_nullable
+      errorCode: freezed == errorCode
+          ? _value.errorCode
+          : errorCode // ignore: cast_nullable_to_non_nullable
               as String?,
       isSuccessfull: freezed == isSuccessfull
           ? _value.isSuccessfull
           : isSuccessfull // ignore: cast_nullable_to_non_nullable
               as bool?,
-      ErrorMessage: freezed == ErrorMessage
-          ? _value.ErrorMessage
-          : ErrorMessage // ignore: cast_nullable_to_non_nullable
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
       apiResponseOk: freezed == apiResponseOk
           ? _value.apiResponseOk
@@ -173,9 +173,9 @@ abstract class _$$SyncResponseImplCopyWith<$Res>
       int? objectType,
       int? objectId,
       String? objectCode,
-      String? ErrorCode,
+      String? errorCode,
       bool? isSuccessfull,
-      String? ErrorMessage,
+      String? errorMessage,
       bool? apiResponseOk,
       String? apiRequestMessage,
       String? apiResponseMessage,
@@ -202,9 +202,9 @@ class __$$SyncResponseImplCopyWithImpl<$Res>
     Object? objectType = freezed,
     Object? objectId = freezed,
     Object? objectCode = freezed,
-    Object? ErrorCode = freezed,
+    Object? errorCode = freezed,
     Object? isSuccessfull = freezed,
-    Object? ErrorMessage = freezed,
+    Object? errorMessage = freezed,
     Object? apiResponseOk = freezed,
     Object? apiRequestMessage = freezed,
     Object? apiResponseMessage = freezed,
@@ -233,17 +233,17 @@ class __$$SyncResponseImplCopyWithImpl<$Res>
           ? _value.objectCode
           : objectCode // ignore: cast_nullable_to_non_nullable
               as String?,
-      ErrorCode: freezed == ErrorCode
-          ? _value.ErrorCode
-          : ErrorCode // ignore: cast_nullable_to_non_nullable
+      errorCode: freezed == errorCode
+          ? _value.errorCode
+          : errorCode // ignore: cast_nullable_to_non_nullable
               as String?,
       isSuccessfull: freezed == isSuccessfull
           ? _value.isSuccessfull
           : isSuccessfull // ignore: cast_nullable_to_non_nullable
               as bool?,
-      ErrorMessage: freezed == ErrorMessage
-          ? _value.ErrorMessage
-          : ErrorMessage // ignore: cast_nullable_to_non_nullable
+      errorMessage: freezed == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
       apiResponseOk: freezed == apiResponseOk
           ? _value.apiResponseOk
@@ -282,9 +282,9 @@ class _$SyncResponseImpl implements _SyncResponse {
       this.objectType,
       this.objectId,
       this.objectCode,
-      this.ErrorCode,
+      this.errorCode,
       this.isSuccessfull,
-      this.ErrorMessage,
+      this.errorMessage,
       this.apiResponseOk,
       this.apiRequestMessage,
       this.apiResponseMessage,
@@ -306,11 +306,11 @@ class _$SyncResponseImpl implements _SyncResponse {
   @override
   final String? objectCode;
   @override
-  final String? ErrorCode;
+  final String? errorCode;
   @override
   final bool? isSuccessfull;
   @override
-  final String? ErrorMessage;
+  final String? errorMessage;
   @override
   final bool? apiResponseOk;
   @override
@@ -326,7 +326,7 @@ class _$SyncResponseImpl implements _SyncResponse {
 
   @override
   String toString() {
-    return 'SyncResponse(id: $id, deviceId: $deviceId, objectType: $objectType, objectId: $objectId, objectCode: $objectCode, ErrorCode: $ErrorCode, isSuccessfull: $isSuccessfull, ErrorMessage: $ErrorMessage, apiResponseOk: $apiResponseOk, apiRequestMessage: $apiRequestMessage, apiResponseMessage: $apiResponseMessage, receiptNumber: $receiptNumber, createdTime: $createdTime, updatedTime: $updatedTime)';
+    return 'SyncResponse(id: $id, deviceId: $deviceId, objectType: $objectType, objectId: $objectId, objectCode: $objectCode, errorCode: $errorCode, isSuccessfull: $isSuccessfull, errorMessage: $errorMessage, apiResponseOk: $apiResponseOk, apiRequestMessage: $apiRequestMessage, apiResponseMessage: $apiResponseMessage, receiptNumber: $receiptNumber, createdTime: $createdTime, updatedTime: $updatedTime)';
   }
 
   @override
@@ -343,12 +343,12 @@ class _$SyncResponseImpl implements _SyncResponse {
                 other.objectId == objectId) &&
             (identical(other.objectCode, objectCode) ||
                 other.objectCode == objectCode) &&
-            (identical(other.ErrorCode, ErrorCode) ||
-                other.ErrorCode == ErrorCode) &&
+            (identical(other.errorCode, errorCode) ||
+                other.errorCode == errorCode) &&
             (identical(other.isSuccessfull, isSuccessfull) ||
                 other.isSuccessfull == isSuccessfull) &&
-            (identical(other.ErrorMessage, ErrorMessage) ||
-                other.ErrorMessage == ErrorMessage) &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage) &&
             (identical(other.apiResponseOk, apiResponseOk) ||
                 other.apiResponseOk == apiResponseOk) &&
             (identical(other.apiRequestMessage, apiRequestMessage) ||
@@ -372,9 +372,9 @@ class _$SyncResponseImpl implements _SyncResponse {
       objectType,
       objectId,
       objectCode,
-      ErrorCode,
+      errorCode,
       isSuccessfull,
-      ErrorMessage,
+      errorMessage,
       apiResponseOk,
       apiRequestMessage,
       apiResponseMessage,
@@ -405,9 +405,9 @@ abstract class _SyncResponse implements SyncResponse {
       final int? objectType,
       final int? objectId,
       final String? objectCode,
-      final String? ErrorCode,
+      final String? errorCode,
       final bool? isSuccessfull,
-      final String? ErrorMessage,
+      final String? errorMessage,
       final bool? apiResponseOk,
       final String? apiRequestMessage,
       final String? apiResponseMessage,
@@ -429,11 +429,11 @@ abstract class _SyncResponse implements SyncResponse {
   @override
   String? get objectCode;
   @override
-  String? get ErrorCode;
+  String? get errorCode;
   @override
   bool? get isSuccessfull;
   @override
-  String? get ErrorMessage;
+  String? get errorMessage;
   @override
   bool? get apiResponseOk;
   @override
