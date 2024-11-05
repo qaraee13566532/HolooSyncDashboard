@@ -5,9 +5,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'features/domain/base_responses/base_response.dart';
-import 'features/domain/dto/authentication/user_token.dart';
-import 'features/domain/dto/sync/sync.dart';
+import 'src/features/domain/base_responses/base_response.dart';
+import 'src/features/domain/dto/authentication/user_token.dart';
+import 'src/features/domain/dto/sync/sync.dart';
 
 
 void main() {
@@ -71,8 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Dio dio = Dio(
     BaseOptions(
       baseUrl: 'https://localhost:5001',
-      connectTimeout: Duration(seconds: 5),
-      receiveTimeout: Duration(seconds: 3),
+      connectTimeout: const Duration(seconds: 5),
+      receiveTimeout: const Duration(seconds: 3),
     ),
   );
 
