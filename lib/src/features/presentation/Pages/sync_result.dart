@@ -1,20 +1,31 @@
+import 'dart:convert';
+
 import 'package:data_table_2/data_table_2.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../domain/dto/sync/sync.dart';
+import '../../domain/models/base_response.dart';
+import '../../domain/models/user_token.dart';
+import '../../domain/models/sync.dart';
 
-class SyncResult extends StatelessWidget {
+class SyncResult extends StatefulWidget {
   final String title;
   final int items;
   final SyncResponses? syncResponses;
 
   const SyncResult(
       {super.key,
-      required this.title,
-      required this.items,
-      this.syncResponses});
+        required this.title,
+        required this.items,
+        this.syncResponses});
 
+
+  @override
+  State<SyncResult> createState() => _SyncResultState();
+}
+
+class _SyncResultState extends State<SyncResult> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,25 +33,33 @@ class SyncResult extends StatelessWidget {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text('بازگشت')),
-                ),
-                Expanded(
-                  flex: 20,
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: Stack(
+                children: <Widget>[
+                  Row(children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('بروزرسانی')),
+                    SizedBox(width: 20,),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('باز گشت')),
+                  ],),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      widget.title,
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
             Expanded(
               child: DataTable2(
@@ -75,37 +94,37 @@ class SyncResult extends StatelessWidget {
                     numeric: true,
                   ),
                 ],
-                rows: List<DataRow>.generate(items, (index) {
+                rows: List<DataRow>.generate(widget.items, (index) {
                   return DataRow(
                     cells: [
                       DataCell(Text((index + 1).toString())),
                       DataCell(Text(
-                        syncResponses!.data![index].objectCode!,
+                        widget.syncResponses!.data![index].objectCode!,
                         textAlign: TextAlign.center,
                       )),
                       DataCell(Text(
-                        syncResponses!.data![index].receiptNumber!,
+                        widget.syncResponses!.data![index].receiptNumber!,
                         textAlign: TextAlign.center,
                       )),
                       DataCell(Text(
-                        syncResponses!.data![index].errorCode ?? '',
+                        widget.syncResponses!.data![index].errorCode ?? '',
                         textAlign: TextAlign.center,
                       )),
                       DataCell(Text(
-                        syncResponses!.data![index].errorMessage ?? '',
+                        widget.syncResponses!.data![index].errorMessage ?? '',
                         textAlign: TextAlign.center,
                       )),
                       DataCell(
                         Text(
                           DateFormat('yyyy-MM-dd')
-                              .format(syncResponses!.data![index].updatedTime!),
+                              .format(widget.syncResponses!.data![index].updatedTime!),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       DataCell(
                         Text(
                           DateFormat('kk:mm')
-                              .format(syncResponses!.data![index].updatedTime!),
+                              .format(widget.syncResponses!.data![index].updatedTime!),
                           textAlign: TextAlign.center,
                         ),
                       ),
