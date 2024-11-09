@@ -9,12 +9,12 @@ import '../../domain/models/base_response.dart';
 import '../../domain/models/user_token.dart';
 import '../../domain/models/sync.dart';
 
-class SyncResult extends StatefulWidget {
+class ReportFailedPage extends StatefulWidget {
   final String title;
   final int items;
   final SyncResponses? syncResponses;
 
-  const SyncResult(
+  const ReportFailedPage(
       {super.key,
         required this.title,
         required this.items,
@@ -22,10 +22,10 @@ class SyncResult extends StatefulWidget {
 
 
   @override
-  State<SyncResult> createState() => _SyncResultState();
+  State<ReportFailedPage> createState() => _ReportFailedPageState();
 }
 
-class _SyncResultState extends State<SyncResult> {
+class _ReportFailedPageState extends State<ReportFailedPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

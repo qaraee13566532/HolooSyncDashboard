@@ -1,10 +1,12 @@
-enum AppRouteEnum { homePage, settingPage, reportFailedPage, reportInvoicePage }
+enum AppRouteEnum { loginPage,homePage, settingPage, reportFailedPage, reportInvoicePage }
 
 extension AppRouteExtension on AppRouteEnum {
   String get name {
     switch (this) {
-      case AppRouteEnum.homePage:
+      case AppRouteEnum.loginPage:
         return "/";
+      case AppRouteEnum.homePage:
+        return "/home_page";
       case AppRouteEnum.settingPage:
         return "/setting_page";
       case AppRouteEnum.reportFailedPage:
