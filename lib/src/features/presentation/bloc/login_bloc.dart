@@ -12,7 +12,6 @@ class LoginCubit extends Cubit<LoginState> {
     emit(const LoadingLoginState());
     var result = await synResultUseCase.login(params);
     print(result);
-    print('ggggggggggggggggggggggggggggggg');
     if (result!.success != null ) {
       emit(const SuccessLoginState());
     } else {

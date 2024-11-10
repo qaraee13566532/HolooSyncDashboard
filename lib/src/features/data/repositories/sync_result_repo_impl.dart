@@ -21,10 +21,14 @@ class SyncResultRepositoryImpl extends AbstractSyncResultsRepository {
       result = await articlesApi.getSyncResults(params);
       return result;
     } on ServerException catch (e) {
-      result?.copyWith(data: null);
-      result?.copyWith(success: null);
-      result?.failure?.copyWith(message: e.message);
-      result?.failure?.copyWith(errorCode: e.statusCode.toString());
+      result = result?.copyWith(
+        data: null,
+        success: null,
+        failure: Failure(
+          message: e.message,
+          errorCode: e.statusCode.toString(),
+        ),
+      );
       return result;
     }
   }
@@ -44,10 +48,14 @@ class SyncResultRepositoryImpl extends AbstractSyncResultsRepository {
       result = await articlesApi.login(params);
       return result;
     } on ServerException catch (e) {
-      result?.copyWith(data: null);
-      result?.copyWith(success: null);
-      result?.failure?.copyWith(message: e.message);
-      result?.failure?.copyWith(errorCode: e.statusCode.toString());
+      result = result?.copyWith(
+        data: null,
+        success: null,
+        failure: Failure(
+          message: e.message,
+          errorCode: e.statusCode.toString(),
+        ),
+      );
       return result;
     }
   }
