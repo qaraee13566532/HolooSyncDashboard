@@ -38,6 +38,7 @@ class SyncResultRepositoryImpl extends AbstractSyncResultsRepository {
     ApiResponse<SyncResponses>? result;
     const params = SyncRequest(Issuccessfull: false);
     result = await getSyncResults(params);
+    print(result);
     return result;
   }
 

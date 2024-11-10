@@ -86,6 +86,8 @@ class LoginPage extends StatelessWidget {
             onSubmitAnimationCompleted: () {
               if (state is SuccessLoginState) {
                 context.go(AppRouteEnum.homePage.name);
+              } else {
+                context.push(AppRouteEnum.loginPage.name);
               }
             },
             onRecoverPassword: (_) => Future(() {}),
