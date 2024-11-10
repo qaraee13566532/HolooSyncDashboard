@@ -4,6 +4,9 @@ String handleDioError(DioException error) {
   String errorDescription = "";
 
   switch (error.type) {
+    case DioExceptionType.connectionError:
+      errorDescription = "خطا در اتصال به سرور .";
+      break;
     case DioExceptionType.cancel:
       errorDescription = "درخواست کنسل شده است.";
       break;

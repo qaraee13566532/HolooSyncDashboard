@@ -44,15 +44,13 @@ class SyncImplApi extends AbstractSyncApi {
 
   @override
   Future<ApiResponse<UserToken>?> login(LoginRequest params) async {
-    print('login');
     ApiResponse<UserToken>? resp;
     try {
       Response response = await dio!.post(
         '/api/User/authenticate',
         data: {'username': params.userName, 'password': params.password},
       );
-      print(response.data);
-      if (response.data == null) {
+       if (response.data == null) {
         throw ServerException("خطا: بدون اطلاعات پاسخ .", response.statusCode);
       }
       resp = ApiResponse.fromJson(response.data,

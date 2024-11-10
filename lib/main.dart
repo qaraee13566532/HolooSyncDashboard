@@ -17,6 +17,12 @@ import 'src/features/domain/models/user_token.dart';
 import 'src/features/domain/models/sync.dart';
 
 void main() async {
+
+  var person = Failure(message: 'good',errorCode: '123');
+  person.copyWith(message: 'bool',errorCode: '4444');
+  print(person);
+
+
   WidgetsFlutterBinding.ensureInitialized();
 
   // Inject all dependencies

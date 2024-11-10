@@ -4,6 +4,7 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:holoo_dashboard/src/features/presentation/Pages/home_page.dart';
+import 'package:holoo_dashboard/src/features/presentation/bloc/login_state.dart';
 
 import '../../../core/router/app_route_enum.dart';
 import '../../../core/utils/injections.dart';
@@ -58,7 +59,7 @@ class LoginPage extends StatelessWidget {
     return null;
   }
 
-  final LoginCubit _cubit = LoginCubit(UserToken(token: '', userCode: ''),
+  final LoginCubit _cubit = LoginCubit(const InitLoginState(),
       synResultUseCase: sl<SynResultUseCase>());
 
   @override
@@ -73,67 +74,75 @@ class LoginPage extends StatelessWidget {
       child: BlocBuilder(
         bloc: _cubit,
         builder: (context, state) {
-          return FlutterLogin(
-            userType: LoginUserType.firstName,
-            title: 'Tozin Tech',
-            logo: const AssetImage('assets/tom.png'),
-            onLogin: (_) => Future(() {}),
-            onSignup: (_) => Future(() {}),
-            onSubmitAnimationCompleted: () {
-              context.read<LoginCubit>().synResultUseCase.login(
-                  LoginRequest(userName: 'tozintech', password: 'ttech'));
-              context.go(AppRouteEnum.homePage.name);
-            },
-            onRecoverPassword: (_) => Future(() {}),
-            theme: LoginTheme(
-              textFieldStyle: const TextStyle(
-                fontFamily: 'BNazanin',
-                color: Colors.orange,
-                shadows: [Shadow(color: Colors.yellow, blurRadius: 2)],
-              ),
-              bodyStyle: const TextStyle(
-                fontSize: 22,
-                fontFamily: 'BNazanin',
-              ),
-              titleStyle: const TextStyle(
-                fontSize: 36,
-                fontFamily: 'BNazanin',
-              ),
-              buttonStyle: const TextStyle(
-                fontSize: 18,
-                fontFamily: 'BNazanin',
-              ),
-              inputTheme: InputDecorationTheme(
-                filled: true,
-                fillColor: Colors.purple.withOpacity(.1),
-                contentPadding: EdgeInsets.zero,
-                errorStyle: const TextStyle(
-                  backgroundColor: Colors.orange,
-                  color: Colors.white,
-                ),
-                labelStyle: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'BNazanin',
-                ),
-              ),
-            ),
-            userValidator: defaultTextValidator,
-            messages: LoginMessages(
-              userHint: 'نام کاربری',
-              passwordHint: 'رمز',
-              confirmPasswordHint: 'تایید',
-              loginButton: 'ورود',
-              signupButton: 'ثبت کاربر',
-              forgotPasswordButton: 'فراموشی رمز',
-              recoverPasswordButton: 'راهنمایی کنید',
-              goBackButton: 'برگشت',
-              confirmPasswordError: '!یکسان نیست',
-              recoverPasswordDescription:
-                  'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-              recoverPasswordSuccess: 'Password rescued successfully',
-            ),
-          );
+          return state is ErrorLoginState
+              ? Container(
+                  color: Colors.red,
+                )
+              : FlutterLogin(
+                  userType: LoginUserType.firstName,
+                  title: 'Tozin Tech',
+                  logo: const AssetImage('assets/tom.png'),
+                  onLogin: (LoginData data) {
+                    context.read<LoginCubit>().login(
+                        LoginRequest(
+                            userName: data.name, password: data.password));
+                    print(state);
+                    if (state is SuccessLoginState) {
+                      context.go(AppRouteEnum.homePage.name);
+                    }
+                  },
+                  onSignup: (_) => Future(() {}),
+                  onSubmitAnimationCompleted: () {},
+                  onRecoverPassword: (_) => Future(() {}),
+                  theme: LoginTheme(
+                    textFieldStyle: const TextStyle(
+                      fontFamily: 'BNazanin',
+                      color: Colors.orange,
+                      shadows: [Shadow(color: Colors.yellow, blurRadius: 2)],
+                    ),
+                    bodyStyle: const TextStyle(
+                      fontSize: 22,
+                      fontFamily: 'BNazanin',
+                    ),
+                    titleStyle: const TextStyle(
+                      fontSize: 36,
+                      fontFamily: 'BNazanin',
+                    ),
+                    buttonStyle: const TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'BNazanin',
+                    ),
+                    inputTheme: InputDecorationTheme(
+                      filled: true,
+                      fillColor: Colors.purple.withOpacity(.1),
+                      contentPadding: EdgeInsets.zero,
+                      errorStyle: const TextStyle(
+                        backgroundColor: Colors.orange,
+                        color: Colors.white,
+                      ),
+                      labelStyle: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'BNazanin',
+                      ),
+                    ),
+                  ),
+                  userValidator: defaultTextValidator,
+                  messages: LoginMessages(
+                    userHint: 'نام کاربری',
+                    passwordHint: 'رمز',
+                    confirmPasswordHint: 'تایید',
+                    loginButton: 'ورود',
+                    signupButton: 'ثبت کاربر',
+                    forgotPasswordButton: 'فراموشی رمز',
+                    recoverPasswordButton: 'راهنمایی کنید',
+                    goBackButton: 'برگشت',
+                    confirmPasswordError: '!یکسان نیست',
+                    recoverPasswordDescription:
+                        'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+                    recoverPasswordSuccess: 'Password rescued successfully',
+                  ),
+                );
         },
       ),
     );

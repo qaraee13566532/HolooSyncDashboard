@@ -3,7 +3,6 @@ import 'package:holoo_dashboard/src/features/domain/models/base_response.dart';
 import 'package:holoo_dashboard/src/features/domain/models/sync.dart';
 
 import '../../../core/network/error/exceptions.dart';
-import '../../../core/network/error/failures.dart';
 import '../../domain/models/user_token.dart';
 import '../../domain/repositories/abstract_sync_results_repository.dart';
 import '../data_sources/syncs_impl_api.dart';
@@ -40,7 +39,7 @@ class SyncResultRepositoryImpl extends AbstractSyncResultsRepository {
 
   @override
   Future<ApiResponse<UserToken>?> login(LoginRequest params) async {
-    ApiResponse<UserToken>? result;
+    ApiResponse<UserToken>? result = ApiResponse<UserToken>();
     try {
       result = await articlesApi.login(params);
       return result;
