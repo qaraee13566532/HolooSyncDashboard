@@ -14,12 +14,11 @@ class ReportFailedPage extends StatefulWidget {
   final int items;
   final SyncResponses? syncResponses;
 
-  const ReportFailedPage(
+  ReportFailedPage(
       {super.key,
-        required this.title,
-        required this.items,
-        this.syncResponses});
-
+      required this.title,
+      required this.items,
+      this.syncResponses});
 
   @override
   State<ReportFailedPage> createState() => _ReportFailedPageState();
@@ -38,24 +37,29 @@ class _ReportFailedPageState extends State<ReportFailedPage> {
               height: 50,
               child: Stack(
                 children: <Widget>[
-                  Row(children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('بروزرسانی')),
-                    SizedBox(width: 20,),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('باز گشت')),
-                  ],),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('بروزرسانی')),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('باز گشت')),
+                    ],
+                  ),
                   Align(
                     alignment: Alignment.topCenter,
                     child: Text(
                       widget.title,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
@@ -99,11 +103,11 @@ class _ReportFailedPageState extends State<ReportFailedPage> {
                     cells: [
                       DataCell(Text((index + 1).toString())),
                       DataCell(Text(
-                        widget.syncResponses!.data![index].objectCode!,
+                        widget.syncResponses!.data![index].objectCode ?? '',
                         textAlign: TextAlign.center,
                       )),
                       DataCell(Text(
-                        widget.syncResponses!.data![index].receiptNumber!,
+                        widget.syncResponses!.data![index].receiptNumber ?? '',
                         textAlign: TextAlign.center,
                       )),
                       DataCell(Text(
@@ -116,15 +120,15 @@ class _ReportFailedPageState extends State<ReportFailedPage> {
                       )),
                       DataCell(
                         Text(
-                          DateFormat('yyyy-MM-dd')
-                              .format(widget.syncResponses!.data![index].updatedTime!),
+                      widget.syncResponses!.data![index].updatedTime == null ? '' :  DateFormat('yyyy-MM-dd').format(
+                              widget.syncResponses!.data![index].updatedTime!),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       DataCell(
                         Text(
-                          DateFormat('kk:mm')
-                              .format(widget.syncResponses!.data![index].updatedTime!),
+                          widget.syncResponses!.data![index].updatedTime == null ? '' :  DateFormat('kk:mm').format(
+                              widget.syncResponses!.data![index].updatedTime!),
                           textAlign: TextAlign.center,
                         ),
                       ),

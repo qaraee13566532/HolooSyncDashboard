@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final SyncResultCubit _cubit = SyncResultCubit(const InitSyncResultState(),
+  final SyncResultCubit _cubit = SyncResultCubit(InitSyncResultState(),
       synResultUseCase: sl<SynResultUseCase>());
 
   @override
@@ -56,14 +56,18 @@ class _HomePageState extends State<HomePage> {
               ),
               Expanded(
                 flex: 70,
-                child: BlocBuilder(
-                  bloc: _cubit,
+                child: BlocConsumer<SyncResultCubit, SyncResultState>(
+                  listener: (context, state) {
+                    if (state is SuccessSyncResultState) {
+                      // Navigate to next screen
+                      print(state);
+                      context.go(AppRouteEnum.reportFailedPage.name,extra: state );
+                    } else if (state is ErrorSyncResultState) {
+                      // Report to analytics
+                      context.go(AppRouteEnum.loginPage.name);
+                    }
+                  },
                   builder: (context, state) {
-                    print(state);
-                    if(state is SuccessSyncResultState)
-                      {
-                        context.go(AppRouteEnum.reportFailedPage.name);
-                      }
                     return  Column(
                       children: [
                         ElevatedButton(

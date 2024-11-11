@@ -75,6 +75,7 @@ class LoginPage extends StatelessWidget {
         bloc: _cubit,
         builder: (context, state) {
           return FlutterLogin(
+
             userType: LoginUserType.firstName,
             title: 'Tozin Tech',
             logo: const AssetImage('assets/tom.png'),
@@ -84,6 +85,7 @@ class LoginPage extends StatelessWidget {
             },
             onSignup: (_) => Future(() {}),
             onSubmitAnimationCompleted: () {
+
               if (state is SuccessLoginState) {
                 context.go(AppRouteEnum.homePage.name);
               } else {

@@ -5,6 +5,7 @@ import 'package:holoo_dashboard/src/features/presentation/Pages/login_page.dart'
 import '../../features/presentation/Pages/home_page.dart';
 import '../../features/presentation/Pages/report_failed_page.dart';
 import '../../features/presentation/Pages/setting_page.dart';
+import '../../features/presentation/bloc/sync_result_state.dart';
 import 'app_route_enum.dart';
 
 class AppRouter {
@@ -25,15 +26,16 @@ class AppRouter {
       GoRoute(
         path: AppRouteEnum.loginPage.name,
         builder: (BuildContext context, GoRouterState state) {
-          return  LoginPage();
+          return LoginPage();
         },
       ),
-      // GoRoute(
-      //   path: AppRouteEnum.reportFailedPage.name,
-      //   builder: (BuildContext context, GoRouterState state) {
-      //     return const ReportFailedPage();
-      //   },
-      // ),
+      GoRoute(
+        path: AppRouteEnum.reportFailedPage.name,
+        builder: (BuildContext context, GoRouterState state) {
+          SuccessSyncResultState result = state.extra as SuccessSyncResultState;
+          return  ReportFailedPage(title: 'گزارش فاکتورهای ارسال نشده',items: result.response?.data?.data!.length ?? 0,syncResponses: result.response?.data);
+        },
+      ),
     ],
   );
 }

@@ -4,20 +4,19 @@ import 'package:holoo_dashboard/src/features/domain/models/base_response.dart';
 import '../../domain/models/sync.dart';
 
 abstract class SyncResultState {
-  const SyncResultState();
+  ApiResponse<SyncResponses>? response = ApiResponse<SyncResponses>();
+  SyncResultState();
 }
 
 class InitSyncResultState extends SyncResultState {
-  const InitSyncResultState();
+  InitSyncResultState();
 }
 
 class LoadingSyncResultState extends SyncResultState {
-  const LoadingSyncResultState();
+  LoadingSyncResultState();
 }
 
 class SuccessSyncResultState extends SyncResultState {
-  ApiResponse<SyncResponses>? response;
-
   SuccessSyncResultState();
 }
 
