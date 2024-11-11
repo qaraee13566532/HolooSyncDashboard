@@ -9,53 +9,30 @@ class SyncResultCubit extends Cubit<SyncResultState> {
 
   SyncResultCubit(super.initialState, {required this.synResultUseCase});
 
-  // void getSyncResults(SyncRequest params) async {
-  //   emit((await synResultUseCase.getSyncResults(params))?.data);
-  // }
+  void getSyncResults(SyncRequest params) async {
+    SuccessSyncResultState result = SuccessSyncResultState();
+    emit(LoadingSyncResultState());
+    result.response = await synResultUseCase.getSyncResults(params);
+    if (result.response?.success != null) {
+      emit(result);
+    } else {
+      emit(ErrorSyncResultState(
+          errorMsg: result.response?.failure?.message ?? '',
+          errorCode: result.response?.failure?.errorCode ?? ''));
+    }
+  }
 
   void getFailedItems() async {
-    var suc = SuccessSyncResultState();
-    suc.response =
-        suc.response?.copyWith(success: Success(message: 'thats right'));
-    suc.response = suc.response?.copyWith(
-      data: SyncResponses(
-        data: [
-          SyncResponse(
-            apiResponseOk: true,
-            deviceId: 1,
-            isSuccessfull: true,
-            id: 10500,
-            objectCode: '1200000254681',
-          ),
-          SyncResponse(
-            apiResponseOk: true,
-            deviceId: 2,
-            isSuccessfull: true,
-            id: 10501,
-            objectCode: '1200000254682',
-          ),
-          SyncResponse(
-            apiResponseOk: true,
-            deviceId: 3,
-            isSuccessfull: true,
-            id: 10502,
-            objectCode: '1200000254683',
-          ),
-        ],
-      ),
-    );
-    print('fffffffffffffffffffffffffff');
-    print(suc.response);
-    emit(suc);
-    // emit(const LoadingSyncResultState());
-    // var result = await synResultUseCase.getFailedItems();
-    // if (result!.success != null) {
-    //   emit(suc);
-    // } else {
-    //   emit(ErrorSyncResultState(
-    //       errorMsg: result.failure!.message,
-    //       errorCode: result.failure!.errorCode));
-    // }
+    SuccessSyncResultState result = SuccessSyncResultState();
+    emit(LoadingSyncResultState());
+    result.response = await synResultUseCase.getFailedItems();
+    if (result.response?.success != null) {
+      emit(result);
+    } else {
+      emit(ErrorSyncResultState(
+          errorMsg: result.response?.failure?.message ?? '',
+          errorCode: result.response?.failure?.errorCode ?? ''));
+    }
   }
 
 /*

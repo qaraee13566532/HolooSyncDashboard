@@ -71,11 +71,16 @@ class LoginPage extends StatelessWidget {
 
     return BlocProvider<LoginCubit>(
       create: (context) => _cubit,
-      child: BlocBuilder(
-        bloc: _cubit,
+      child: BlocConsumer<LoginCubit,LoginState>(
+        listener: (context, state) {
+          if(state is ErrorLoginState)
+            {
+              print(state);
+              context.push(AppRouteEnum.loginPage.name);
+            }
+        },
         builder: (context, state) {
           return FlutterLogin(
-
             userType: LoginUserType.firstName,
             title: 'Tozin Tech',
             logo: const AssetImage('assets/tom.png'),
@@ -85,11 +90,8 @@ class LoginPage extends StatelessWidget {
             },
             onSignup: (_) => Future(() {}),
             onSubmitAnimationCompleted: () {
-
               if (state is SuccessLoginState) {
                 context.go(AppRouteEnum.homePage.name);
-              } else {
-                context.push(AppRouteEnum.loginPage.name);
               }
             },
             onRecoverPassword: (_) => Future(() {}),
